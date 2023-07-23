@@ -12,6 +12,7 @@
 int main(void) {
   int table[B][N+1];
 
+  // Setup constraints for the contents of the table...
   for (int i = 0; i < B; ++i) {
     int y = 1;
     int x = 1;
@@ -26,10 +27,12 @@ int main(void) {
     }
   }
 
+  // This will end up being the solution.
   int soln[N+1];
 
+  // Disallow the solver from finding solutions that we've already found.
+  // These are the solutions for N=3, B=10.
 #define NDISALLOWED 6
-
   int disallowed[NDISALLOWED][N+1] = {
     {0, 0, 0, 0},
     {1, 0, 0, 0},
@@ -39,10 +42,14 @@ int main(void) {
     {3, 5, 1, 0},
   };
 
+  // The number of solutions to exclude. You can set this to e.g.
+  // 2 to get some example solutions.
 #ifndef CHECK_SOLUTIONS
 #define CHECK_SOLUTIONS 6
 #endif
 
+  // Setup the constraints to prevent the solver from finding a disallowed
+  // solution.
   for (int i = 0; i < CHECK_SOLUTIONS; ++i) {
     int is_same = 1;
     for (int j = 0; j < N+1; ++j) {
@@ -53,6 +60,7 @@ int main(void) {
     __CPROVER_assume(!is_same);
   }
 
+  // Setup the constraints that the solution must sum to 0.
   int z = 0;
 
   for (int i = N; i >= 0; --i) {
