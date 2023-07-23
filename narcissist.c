@@ -1,8 +1,13 @@
 #include <stdio.h>
 #include <assert.h>
 
+#ifndef N
 #define N 3
+#endif
+
+#ifndef B
 #define B 10
+#endif
 
 int main(void) {
   int table[B][N+1];
@@ -34,7 +39,11 @@ int main(void) {
     {3, 5, 1, 0},
   };
 
-  for (int i = 0; i < 2; ++i) {
+#ifndef CHECK_SOLUTIONS
+#define CHECK_SOLUTIONS 6
+#endif
+
+  for (int i = 0; i < CHECK_SOLUTIONS; ++i) {
     int is_same = 1;
     for (int j = 0; j < N+1; ++j) {
       int w = soln[j];

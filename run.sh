@@ -1,3 +1,3 @@
 #!/bin/sh
 
-cbmc narcissist.c --trace | grep idx=
+cbmc narcissist.c --trace $@  | grep idx=
